@@ -40,7 +40,7 @@ exports.tambahMahasiswa = function (req, res) {
 
     connection.query('INSERT INTO Mahasiswa (nim,nama,jurusan) VALUES(?,?,?)', [nim, nama, jurusan],
         function (error, rows, fields) {
-            if(error) {
+            if (error) {
                 console.log(error);
             } else {
                 response.ok("Berhasil menambahkan data!", res)
@@ -50,18 +50,32 @@ exports.tambahMahasiswa = function (req, res) {
 };
 
 // Mengubah data berdasarkan id
-exports.ubahMahasiswa = function(req,res) {
+exports.ubahMahasiswa = function (req, res) {
     var id = req.body.id_mahasiswa;
     var nim = req.body.nim;
     var nama = req.body.nama;
     var jurusan = req.body.jurusan;
 
-    connection.query('UPDATE Mahasiswa SET nim=?, nama=?, jurusan=? WHERE id_mahasiswa=?', [nim,nama,jurusan,id],
-        function(error, rows, fields) {
-            if(error) {
+    connection.query('UPDATE Mahasiswa SET nim=?, nama=?, jurusan=? WHERE id_mahasiswa=?', [nim, nama, jurusan, id],
+        function (error, rows, fields) {
+            if (error) {
                 console.log(error);
             } else {
                 response.ok("Berhasil ubah data", res)
+            }
+        }
+    );
+}
+
+// Menghapus data berdasarkan id
+exports.hapusMahasiswa = function (req, res) {
+    var id = req.body.id_mahasiswa;
+    connection.query('DELETE FROM Mahasiswa WHERE id_mahasiswa=?', [id],
+        function (error, rows, fields) {
+            if (error) {
+                console.log(error);
+            } else {
+                response.ok("Berhasil hapus data", res)
             }
         }
     );
